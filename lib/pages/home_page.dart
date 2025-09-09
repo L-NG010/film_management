@@ -83,11 +83,21 @@ class _HomePageState extends State<HomePage> {
                   color: movie.isFavorite ? Colors.red : Colors.grey,
                 ),
                 onPressed: () {
+                  final isNowFavorite = _movieService.toggleFavorite(movie.id);
                   setState(() {
-                    _movieService.toggleFavorite(movie.id);
                     // Optimistically update local list reference
                     _movies = _movieService.getMovies();
                   });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        isNowFavorite
+                          ? 'Ditambahkan ke Favorit'
+                          : 'Dihapus dari Favorit',
+                      ),
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
                 },
               ),
               onTap: () async {

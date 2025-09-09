@@ -22,8 +22,8 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   void _toggleFavorite() {
+    final isNowFavorite = _movieService.toggleFavorite(_movie.id);
     setState(() {
-      _movieService.toggleFavorite(_movie.id);
       // Update local movie data
       final updatedMovie = _movieService.getMovieById(_movie.id);
       if (updatedMovie != null) {
@@ -34,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          _movie.isFavorite 
+          isNowFavorite 
             ? 'Ditambahkan ke Favorit' 
             : 'Dihapus dari Favorit',
         ),

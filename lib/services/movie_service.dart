@@ -12,43 +12,59 @@ class MovieService {
   final List<Movie> _movies = [
     Movie(
       id: '1',
-      title: 'The Shawshank Redemption',
-      year: 1994,
+      title: 'The Chronicles of Narnia: The Lion, the Witch and the Wardrobe',
+      year: 2005,
       posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
-      genres: ['Drama', 'Crime'],
-      synopsis: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
+      genres: ['Fantasy', 'Adventure', 'Family'],
+      synopsis: 'Four siblings enter the magical world of Narnia through a wardrobe and join Aslan to defeat the White Witch.',
     ),
     Movie(
       id: '2',
-      title: 'The Godfather',
-      year: 1972,
+      title: 'The Hobbit: An Unexpected Journey',
+      year: 2012,
       posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
-      genres: ['Crime', 'Drama'],
-      synopsis: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.',
+      genres: ['Fantasy', 'Adventure'],
+      synopsis: 'Bilbo Baggins joins a company of dwarves and Gandalf on a quest to reclaim Erebor from the dragon Smaug.',
     ),
     Movie(
       id: '3',
-      title: 'The Dark Knight',
-      year: 2008,
+      title: 'Komang',
+      year: 2025,
       posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
-      genres: ['Action', 'Crime', 'Drama'],
-      synopsis: 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+      genres: ['Drama', 'Romance'],
+      synopsis: 'Sebuah kisah drama Indonesia tentang perjalanan cinta dan pilihan hidup.',
     ),
     Movie(
       id: '4',
-      title: 'Pulp Fiction',
-      year: 1994,
+      title: 'Jumbo',
+      year: 2008,
       posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
-      genres: ['Crime', 'Drama'],
-      synopsis: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+      genres: ['Animation', 'Adventure', 'Family'],
+      synopsis: 'Seekor gajah kecil bernama Jumbo mencari ayahnya dan menemukan keberanian di medan perang.',
     ),
     Movie(
       id: '5',
-      title: 'Inception',
+      title: 'Pee Mak',
+      year: 2013,
+      posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
+      genres: ['Comedy', 'Horror', 'Romance'],
+      synopsis: 'Mak kembali dari perang, namun desas-desus mengatakan istrinya, Nak, adalah hantu. Sahabat-sahabatnya berusaha mengungkap kebenaran.',
+    ),
+    Movie(
+      id: '6',
+      title: 'My Stupid Boss',
+      year: 2016,
+      posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
+      genres: ['Comedy'],
+      synopsis: 'Kisah karyawan yang harus berhadapan dengan bosnya yang eksentrik dan penuh kelucuan di kantor.',
+    ),
+    Movie(
+      id: '7',
+      title: 'How to Train Your Dragon',
       year: 2010,
       posterUrl: 'https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=400&h=600&fit=crop',
-      genres: ['Action', 'Adventure', 'Sci-Fi'],
-      synopsis: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
+      genres: ['Animation', 'Adventure', 'Family', 'Fantasy'],
+      synopsis: 'Seorang Viking muda bernama Hiccup berteman dengan seekor naga bernama Toothless, menantang tradisi pemburuan naga di desanya.',
     ),
   ];
 
@@ -62,7 +78,7 @@ class MovieService {
     return _favorites;
   }
 
-  void toggleFavorite(String movieId) {
+  bool toggleFavorite(String movieId) {
     final movieIndex = _movies.indexWhere((movie) => movie.id == movieId);
     if (movieIndex != -1) {
       _movies[movieIndex].isFavorite = !_movies[movieIndex].isFavorite;
@@ -78,7 +94,9 @@ class MovieService {
           _favorites.removeAt(favoriteIndex);
         }
       }
+      return _movies[movieIndex].isFavorite;
     }
+    return false;
   }
 
   Movie? getMovieById(String id) {
