@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/movie.dart';
 import '../services/movie_service.dart';
+import '../utils/notifications.dart';
 
 class DetailPage extends StatefulWidget {
   final Movie movie;
@@ -31,16 +32,7 @@ class _DetailPageState extends State<DetailPage> {
       }
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _movie.isFavorite 
-            ? 'Ditambahkan ke Favorit' 
-            : 'Dihapus dari Favorit',
-        ),
-        duration: const Duration(seconds: 1),
-      ),
-    );
+    showFavoriteSnackBar(context, isNowFavorite: _movie.isFavorite);
   }
 
   @override

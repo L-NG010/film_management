@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/movie.dart';
 import '../services/movie_service.dart';
 import 'detail_page.dart';
+import '../utils/notifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -88,6 +89,10 @@ class _HomePageState extends State<HomePage> {
                     // Optimistically update local list reference
                     _movies = _movieService.getMovies();
                   });
+                  final updated = _movieService.getMovieById(movie.id);
+                  if (updated != null) {
+                    showFavoriteSnackBar(context, isNowFavorite: updated.isFavorite);
+                  }
                 },
               ),
               onTap: () async {
