@@ -20,13 +20,14 @@ class _HomePageState extends State<HomePage> {
     _movies = _movieService.getMovies();
   }
 
-  void _navigateToDetail(Movie movie) {
-    Navigator.push(
+  Future<void> _navigateToDetail(Movie movie) async {
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => DetailPage(movie: movie),
       ),
     );
+    _refreshFavorites();
   }
 
   void _refreshFavorites() {
@@ -76,13 +77,21 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               subtitle: Text('Tahun: ${movie.year}'),
-              trailing: Icon(
-                movie.isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: movie.isFavorite ? Colors.red : Colors.grey,
+              trailing: IconButton(
+                icon: Icon(
+                  movie.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: movie.isFavorite ? Colors.red : Colors.grey,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _movieService.toggleFavorite(movie.id);
+                    // Optimistically update local list reference
+                    _movies = _movieService.getMovies();
+                  });
+                },
               ),
               onTap: () async {
-                _navigateToDetail(movie);
-                _refreshFavorites();
+                await _navigateToDetail(movie);
               },
             ),
           );
